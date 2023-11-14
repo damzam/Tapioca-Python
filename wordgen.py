@@ -21,9 +21,9 @@ def generate_words(chars, pre=''):
       - chars: the remaining characters that can be appended to the prefix
       - pre: the ordered characters descending down the tree recursively...
             can be checked against WORDLIST to see if a valid word is formed
-    Return a *set* of words (to avoid duplicates) based on the intersection
-    of sets of valid words found by traversing the tree of charcacter
-    permutations recursively.
+    Return a *set* of words (to avoid duplicates) based on the union of sets
+    of valid words found by traversing the tree of charcacter permutations
+    recursively.
     """
     words = set()
     if pre in WORDLIST:
@@ -33,7 +33,7 @@ def generate_words(chars, pre=''):
         # Now let's branch off for each character, removing it from chars
         # and adding it to the sorted prefix `pre`, and make the appropriate
         # recursive calls. Collate the valid words found from the branches
-        # of the tree by using python's set intersection operator |=
+        # of the tree by using python's set union operator |=
         words |= generate_words(chars[:i] + chars[i + 1:], pre + char)
     return words
         
